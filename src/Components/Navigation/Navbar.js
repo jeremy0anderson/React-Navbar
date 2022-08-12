@@ -4,6 +4,7 @@ import {motion} from 'framer-motion';
 import {Link} from 'react-router-dom';
 import {Button,Container} from '../Motion/Motion';
 import {MenuOutlined as Menu} from "@mui/icons-material";
+import * as M from '@mui/material';
 import "./navbar.css";
 import Drawer from "./Drawer";
 
@@ -85,7 +86,7 @@ const styles =(props)=> (
             display: 'flex',
             height: 60,
             alignItems: 'center', justifyContent: 'center', alignContent: 'center',
-            background: "rgba(200, 200, 200, 0.5)",
+            background: "linear-gradient(to right top, #3a009b, #38009d, #35009f, #3200a1, #2f00a3, #2b009f, #26009b, #220097, #1c008c, #170081, #110077, #0b006c)",
             position: 'fixed'
         },
         toggle: {
@@ -93,7 +94,8 @@ const styles =(props)=> (
             justifyContent: 'center', alignItems: 'center', alignContent: 'center',
             background: "none",
             border: "none",
-            cursor: "pointer"
+            cursor: "pointer",
+            color: "white"
         },
         toolbar: {
             zIndex: 1000,
@@ -168,7 +170,7 @@ class Nav extends Component {
                                 whileHover={{scale: 1.1}}
                                 whileTap={{scale: 0.8}}
                                 onClick={this.toggleMenu}>
-                            <Menu size={30}/>
+                            <Menu size={30} />
                         </Toggle>
                         <Container
                             style={{width: "100%"}}
@@ -183,6 +185,7 @@ class Nav extends Component {
                                 })}
                             </ul>
                         </Container>
+                        <Link to={"/"} style={{ textDecoration:"none", color: 'white', display: 'block', width: 150}}>Jeremy Anderson</Link>
                     </Toolbar>
                 </Container>
                 <Drawer
@@ -195,15 +198,17 @@ class Nav extends Component {
                                         e.preventDefault();
                                         this.toggleMenu()
                                     }}
-                                        key={'navMenuListItem'+index} style={{width: 100, height: 180/items.length, display: "flex", alignContent:"center", alignItems:"center", justifyContent:"center"}}>
+                                        key={'navMenuListItem'+index}
+                                        style={{
+                                            // borderTop: "0.5px solid white",
+                                            // borderBottom: "0.5px solid white",
+                                            width: "100%", height: 180/items.length,
+                                            display: "flex", alignContent:"center",
+                                            alignItems:"center", justifyContent:"center"}}>
                                         {item}
                                     </li>
                                 )
                             })}
-                            {/*<li>item 1</li>*/}
-                            {/*<li>item 2</li>*/}
-                            {/*<li>item 3</li>*/}
-                            {/*<li>item 4</li>*/}
                         </ul>
                 </Drawer>
 

@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import {Fragment} from "react";
+import {Route, Routes} from "react-router-dom";
+import Components from './Components';
+import Contact from "./Components/Pages/Contact/Contact";
+const {Nav, Container, Button, Home} = Components;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(props){
+    return(
+        <Fragment>
+            <Nav drawerAnchor={'right'}/>
+            <Container
+                style={{position: "fixed", width: "100vw", height: "100vh", top: 60, background: 'rgb(45, 45, 45)'}}>
+                    <Routes>
+                        <Route path={"/contact"} element={<Contact/>}/>
+                    </Routes>
+
+            </Container>
+        </Fragment>
+    )
 }
-
 export default App;
