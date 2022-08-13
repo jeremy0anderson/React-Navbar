@@ -121,130 +121,116 @@ class Contact extends Component {
     //render
     render() {
         return (
-            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", height: "100%", width: "100%", p:0}}>
-                <Box
-                    sx={{
-                        borderRadius: "50%",
-                        boxShadow: "0 6px 10px 1px darkslategray",
-                        width: 150,
-                        height: 150,
-                        display:"flex",
-                        justifyContent:"center",
-                        alignItems:"center",
-                        alignContent: "center",
-                        textAlign: "center",
-                        position: 'relative',
-                        top:{
-                            xs: -290,
-                            sm: -220
-                        },
-                        background: "white",
-                        zIndex: 20000
-
-                    }}>
-                    <Text h3={true} style={{position: 'relative'}}>Contact</Text>
-                </Box>
-                <Card sx={{display: "flex", justifyContent: "center", alignItems: "center", width: "90%", height: "auto", position: "absolute"}}>
-                    <Container
-                        sx={{p:3}}
-                        maxWidth={"sm"}>
-                        <Spacer x={0} y={1.5}/>
-                        <Spacer x={0} y={1.75}/>
-                        {/*    <Text color={"primary"}>Enter your details below to send me an email - or click <Link style={{color: "orangered"}} to={"/chat"}>here</Link> to start a thread </Text>*/}
-                        {/*<Spacer x={0} y={3}/>*/}
+            // <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", height: "80%", width: "100%", p:0, left: 0}}>
+                <Card sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", alignSelf: "center",
+                    width:{
+                        xs: "90%",
+                        sm: "80%",
+                        md: "70%",
+                        lg: "60%",
+                        xl: "50%"
+                    }, height: "60%", position: "absolute",
+                    left:{
+                        xs: "5%",
+                        sm: "10%",
+                        md: "15%",
+                        lg: "20%",
+                        xl: "25%"
+                    },top: 100, overflow: "visible"}}>
+                    <Box
+                        id={"Contact-form"}
+                        onSubmit={this.handleSubmit}
+                        component={"form"}>
                         <Box
-                            id={"Contact-form"}
-                            onSubmit={this.handleSubmit}
-                            component={"form"}>
-                            <Box
-                                sx={{
-                                    display:'flex',
-                                    justifyContent: "space-between",
-                                    flexDirection:{
-                                        xs: "column",
-                                        sm: "row",
-                                        md: "row",
-                                        lg: "row",
-                                        xl: "row"
-                                    }
-                                }}>
-                                <Input
-                                    required={true}
-                                    onBlur={this.handleNameBlur}
-                                    contentLeft={<PersonOutlined/>}
-                                    css={{marginInline: 5}}
-                                    color={"secondary"}
-                                    onChange={this.handleNameChange}
-                                    aria-label={"name field"}
-                                    helperText={this.state.nameError?"Name required":""}
-                                    helperColor={"error"}
-                                    bordered={true}
-                                    borderWeight={"bold"}
-                                    labelPlaceholder={"Name"}/>
-                                <Spacer x={0} y={1.5}/>
-                                <Input
-                                    required={true}
-                                    onBlur={this.handleEmailBlur}
-                                    helperText={this.state.emailError?"Please enter a valid email":""}
-                                    helperColor={"error"}
-                                    contentLeft={<MailOutlined/>}
-                                    css={{marginInline: 5}}
-                                    color={"secondary"}
-                                    onChange={this.handleEmailChange}
-                                    borderWeight={"bold"}
-                                    bordered={true}
-                                    aria-label={"email field"}
-                                    labelPlaceholder="Email"/>
-                                <Spacer x={0} y={1.5}/>
-                                <Input
-                                    required={true}
-                                    onBlur={this.handleSubjectBlur}
-                                    helperText={this.state.subjectError?"Subject required":""}
-                                    helperColor={"error"}
-                                    contentLeft={<NotesOutlined/>}
-                                    css={{marginInline: 5}}
-                                    color={"secondary"}
-                                    onChange={this.handleSubjectChange}
-                                    aria-label={"subject field"}
-                                    borderWeight={"bold"}
-                                    bordered={true}
-                                    labelPlaceholder={"Subject"}/>
-                            </Box>
-                            <Spacer x={0} y={2.25}/>
-                            <Box
-                                sx={{display:'flex', justifyContent: "center", width: "100%", flexDirection: "column"}}>
-                                <Textarea
-                                    required={true}
-                                    helperText={this.state.messageError?"Message required":""}
-                                    helperColor={"error"}
-                                    onBlur={this.handleMessageBlur}
-                                    css={{marginInline: 5, fontFamily: "sans-serif"}}
-                                    minRows={5}
-                                    color={"secondary"}
-                                    bordered={true}
-                                    borderWeight={"bold"}
-                                    style={{width: "100%"}}
-                                    labelPlaceholder={"Message"}
-                                    multiple={true}/>
-                            </Box>
-                            <Text css={{color: "green", margin: 5}}>{this.state.resMessage}</Text>
-                            <Spacer x={0} y={2}/>
-                            <Box
-                                sx={{
-                                    display:'flex',
-                                    justifyContent: "center",
-                                    width: "100%",
-                                }}>
-                                <Button
-                                    sx={{width: "98%", marginInline:0}} variant={"contained"} type={"submit"}>
-                                    {this.state.loading? <TailSpin color="#00BFFF" height={30} width={30} visible={this.state?.loading}/>: "Send"}
-                                </Button>
-                            </Box>
-                            <Spacer x={0} y={2}/>
+                            sx={{
+                                display:'flex',
+                                justifyContent: "space-between",
+                                flexDirection:{
+                                    xs: "column",
+                                    sm: "row",
+                                    md: "row",
+                                    lg: "row",
+                                    xl: "row"
+                                }
+                            }}>
+                            <Input
+                                required={true}
+                                onBlur={this.handleNameBlur}
+                                contentLeft={<PersonOutlined/>}
+                                css={{marginInline: 5}}
+                                color={"secondary"}
+                                onChange={this.handleNameChange}
+                                aria-label={"name field"}
+                                helperText={this.state.nameError?"Name required":""}
+                                helperColor={"error"}
+                                bordered={true}
+                                borderWeight={"bold"}
+                                labelPlaceholder={"Name"}/>
+                            <Spacer x={0} y={2.5}/>
+                            <Input
+                                type={"email"}
+                                required={true}
+                                onBlur={this.handleEmailBlur}
+                                helperText={this.state.emailError?"Please enter a valid email":""}
+                                helperColor={"error"}
+                                contentLeft={<MailOutlined/>}
+                                css={{marginInline: 5}}
+                                color={"secondary"}
+                                onChange={this.handleEmailChange}
+                                borderWeight={"bold"}
+                                bordered={true}
+                                aria-label={"email field"}
+                                labelPlaceholder="Email"/>
+                            <Spacer x={0} y={1.5}/>
+                            <Input
+                                required={true}
+                                onBlur={this.handleSubjectBlur}
+                                helperText={this.state.subjectError?"Subject required":""}
+                                helperColor={"error"}
+                                contentLeft={<NotesOutlined/>}
+                                css={{marginInline: 5}}
+                                color={"secondary"}
+                                onChange={this.handleSubjectChange}
+                                aria-label={"subject field"}
+                                borderWeight={"bold"}
+                                bordered={true}
+                                labelPlaceholder={"Subject"}/>
                         </Box>
-                    </Container>
+                        <Spacer x={0} y={2.25}/>
+                        <Box
+                            sx={{display:'flex', justifyContent: "center", width: "100%", flexDirection: "column"}}>
+                            <Textarea
+                                required={true}
+                                helperText={this.state.messageError?"Message required":""}
+                                helperColor={"error"}
+                                onBlur={this.handleMessageBlur}
+                                css={{marginInline: 5, fontFamily: "sans-serif"}}
+                                minRows={5}
+                                color={"secondary"}
+                                bordered={true}
+                                borderWeight={"bold"}
+                                style={{width: "100%"}}
+                                labelPlaceholder={"Message"}
+                                multiple={true}/>
+                        </Box>
+                        <Text css={{color: "green", margin: 5}}>{this.state.resMessage}</Text>
+                        <Spacer x={0} y={2}/>
+                        <Box
+                            sx={{
+                                display:'flex',
+                                justifyContent: "center",
+                                width: "100%",
+                            }}>
+                            <Button
+                                disabled={this.state.emailError || this.state.nameError || this.state.messageError || this.state.subjectError}
+                                sx={{width: "98%", marginInline:0}} variant={"contained"} type={"submit"}>
+                                {this.state.loading? <TailSpin color="#00BFFF" height={30} width={30} visible={this.state?.loading}/>: "Send"}
+                            </Button>
+                        </Box>
+                        <Spacer x={0} y={2}/>
+                    </Box>
                 </Card>
-            </Box>
+            // </Box>
         );
     }
 }

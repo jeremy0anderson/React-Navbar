@@ -6,7 +6,7 @@ const Wrapper = (props) => {
 const tagMap = {
     paragraph: "p",
     heading1: "h1",
-    heading2: "h2"
+    heading2: "h2",
 };
 
 const AnimatedCharacters = (props) => {
@@ -14,13 +14,13 @@ const AnimatedCharacters = (props) => {
         hidden: {
             y: "100%",
             color: "#ba0030",
-            transition: {type: "spring", duration: 0.1, ease: [0.15, 0.5, 0.7, 1]
+            transition: {type: "spring", duration: 0.3, ease: [0.15, 0.5, 0.7, 1]
             }
         },
         visible: {
             y: 0,
-            color: "#020038",
-            transition: {type: "spring",  ease: [0.15, 0.5, 0.7, 1], duration: 0.4 , bounce: 0.1, bounceStiffness: 0.2}
+            color: "#170772",
+            transition: {type: "spring",  ease: [0.15, 0.5, 0.7, 1], duration: 0.3 , bounce: 0.3, bounceStiffness: 0.5}
         }
     };
 
@@ -52,7 +52,7 @@ const AnimatedCharacters = (props) => {
                                 <span
                                     style={{
                                         overflow: "hidden",
-                                        display: "inline-block"
+                                        display: "inline-flex"
                                     }}
                                     key={index}>
                                         <motion.span

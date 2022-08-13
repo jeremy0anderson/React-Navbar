@@ -23,10 +23,6 @@ code {
     flex-direction: column;
   }
 }
-#Home{
-  grid-template-areas:
-          "first second second second second"
-          "third third third third third"
-          "third third third third third"
-          "third third third third third";
+h1{
+    margin: 10px 0;
 }
