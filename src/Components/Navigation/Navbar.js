@@ -25,8 +25,8 @@ const config = (state)=>[
             ...state,
             open: true,
             animateProps: {
-                width: 'calc(100vw - 250px)',
-                x: 250
+                width: '100vw',
+                x: 0
             }
         }
     ],
@@ -45,7 +45,7 @@ const config = (state)=>[
             ...state,
             open: true,
             animateProps: {
-                width: "calc(100vw - 250px)",
+                width: "100vw",
                 x: 0
             }
         },
@@ -185,7 +185,7 @@ class Nav extends Component {
                                 })}
                             </ul>
                         </Container>
-                        <Link to={"/"} style={{ textDecoration:"none", color: 'white', display: 'block', width: 150}}>Jeremy Anderson</Link>
+                        {/*<Link to={"/"} style={{ textDecoration:"none", color: 'white', display: 'flex', width: 150}}>Jeremy Anderson</Link>*/}
                     </Toolbar>
                 </Container>
                 <Drawer

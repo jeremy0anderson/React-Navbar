@@ -121,13 +121,34 @@ class Contact extends Component {
     //render
     render() {
         return (
-            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", height: "100%", width: "auto", mt: 5}}>
-                <Card sx={{display: "flex", justifyContent: "center", alignItems: "center", width: "70%", height: "auto"}}>
+            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", height: "100%", width: "100%", p:0}}>
+                <Box
+                    sx={{
+                        borderRadius: "50%",
+                        boxShadow: "0 6px 10px 1px darkslategray",
+                        width: 150,
+                        height: 150,
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        alignContent: "center",
+                        textAlign: "center",
+                        position: 'relative',
+                        top:{
+                            xs: -290,
+                            sm: -220
+                        },
+                        background: "white",
+                        zIndex: 20000
+
+                    }}>
+                    <Text h3={true} style={{position: 'relative'}}>Contact</Text>
+                </Box>
+                <Card sx={{display: "flex", justifyContent: "center", alignItems: "center", width: "90%", height: "auto", position: "absolute"}}>
                     <Container
                         sx={{p:3}}
                         maxWidth={"sm"}>
                         <Spacer x={0} y={1.5}/>
-                        <Text h1={true} style={{position: 'relative', left: 10}}>Contact</Text>
                         <Spacer x={0} y={1.75}/>
                         {/*    <Text color={"primary"}>Enter your details below to send me an email - or click <Link style={{color: "orangered"}} to={"/chat"}>here</Link> to start a thread </Text>*/}
                         {/*<Spacer x={0} y={3}/>*/}
@@ -141,7 +162,7 @@ class Contact extends Component {
                                     justifyContent: "space-between",
                                     flexDirection:{
                                         xs: "column",
-                                        sm: "column",
+                                        sm: "row",
                                         md: "row",
                                         lg: "row",
                                         xl: "row"
@@ -157,6 +178,8 @@ class Contact extends Component {
                                     aria-label={"name field"}
                                     helperText={this.state.nameError?"Name required":""}
                                     helperColor={"error"}
+                                    bordered={true}
+                                    borderWeight={"bold"}
                                     labelPlaceholder={"Name"}/>
                                 <Spacer x={0} y={1.5}/>
                                 <Input
@@ -168,6 +191,8 @@ class Contact extends Component {
                                     css={{marginInline: 5}}
                                     color={"secondary"}
                                     onChange={this.handleEmailChange}
+                                    borderWeight={"bold"}
+                                    bordered={true}
                                     aria-label={"email field"}
                                     labelPlaceholder="Email"/>
                                 <Spacer x={0} y={1.5}/>
@@ -181,6 +206,8 @@ class Contact extends Component {
                                     color={"secondary"}
                                     onChange={this.handleSubjectChange}
                                     aria-label={"subject field"}
+                                    borderWeight={"bold"}
+                                    bordered={true}
                                     labelPlaceholder={"Subject"}/>
                             </Box>
                             <Spacer x={0} y={2.25}/>
@@ -192,8 +219,10 @@ class Contact extends Component {
                                     helperColor={"error"}
                                     onBlur={this.handleMessageBlur}
                                     css={{marginInline: 5, fontFamily: "sans-serif"}}
-                                    minRows={3}
+                                    minRows={5}
                                     color={"secondary"}
+                                    bordered={true}
+                                    borderWeight={"bold"}
                                     style={{width: "100%"}}
                                     labelPlaceholder={"Message"}
                                     multiple={true}/>
