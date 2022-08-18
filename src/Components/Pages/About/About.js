@@ -12,8 +12,8 @@ const Skills = () => (
                 <Card
                     animate={{}}
                     whileHover={{scale: 1.2, zIndex: 2000}}
-                    whileTap={{scale: 1.2}}
-                    transition={{type: "spring", duration: 0.1}}
+                    whileTap={{scale: 0.9}}
+                    transition={{}}
                     style={{padding: 10, margin:5,width: 80, display: 'flex', flexDirection: 'column', justifyContent:"center", alignContent:"center", alignItems: "center",}}
                     key={skill}>
                     <img key={skill+"img"} src={link} alt={skill} width={50} height={50}/>

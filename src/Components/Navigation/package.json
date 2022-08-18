@@ -1,0 +1,22 @@
+{
+  "name": "react-nav-with-drawer",
+  "version": "1.0.1",
+  "description": "React navigation component with configurable drawer location (top, left, or right)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "framer-motion": "^7.1.0",
+    "@mui/material": "^5.10.0",
+    "@mui/icons-material": "^5.8.4",
+    "@emotion/styled": "^11.10.0",
+    "@emotion/react": "^11.10.0",
+    "react-router-dom": "^6.3.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0"
+  }
+}

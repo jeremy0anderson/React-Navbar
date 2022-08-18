@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Input, Spacer, Text, Textarea, Button as NButton} from '@nextui-org/react';
+
+import {Spacer, Text, Textarea, Button as NButton} from '@nextui-org/react';
 import {Card, Button, Container, Box, Typography, TextField} from '@mui/material';
 import {init, send} from '@emailjs/browser';
 import {Mail, MailOutlined, NotesOutlined, PersonOutlined} from "@mui/icons-material";
@@ -153,65 +154,49 @@ class Contact extends Component {
                                     xl: "row"
                                 }
                             }}>
-                            <Input
+                            <TextField
+                                variant={"outlined"}
                                 required={true}
                                 onBlur={this.handleNameBlur}
-                                contentLeft={<PersonOutlined/>}
-                                css={{marginInline: 5}}
-                                color={"secondary"}
+                                sx={{marginInline: 5}}
                                 onChange={this.handleNameChange}
                                 aria-label={"name field"}
-                                helperText={this.state.nameError?"Name required":""}
-                                helperColor={"error"}
-                                bordered={true}
-                                borderWeight={"bold"}
-                                labelPlaceholder={"Name"}/>
+                                type={"text"}
+                                label={"Name"}/>
                             <Spacer x={0} y={2.5}/>
-                            <Input
+                            <TextField
+                                variant={"outlined"}
                                 type={"email"}
                                 required={true}
                                 onBlur={this.handleEmailBlur}
-                                helperText={this.state.emailError?"Please enter a valid email":""}
-                                helperColor={"error"}
-                                contentLeft={<MailOutlined/>}
-                                css={{marginInline: 5}}
+                                sx={{marginInline: 5}}
                                 color={"secondary"}
                                 onChange={this.handleEmailChange}
-                                borderWeight={"bold"}
-                                bordered={true}
                                 aria-label={"email field"}
-                                labelPlaceholder="Email"/>
+                                label={"Email"}/>
                             <Spacer x={0} y={1.5}/>
-                            <Input
+                            <TextField
+                                variant={"outlined"}
                                 required={true}
                                 onBlur={this.handleSubjectBlur}
-                                helperText={this.state.subjectError?"Subject required":""}
-                                helperColor={"error"}
-                                contentLeft={<NotesOutlined/>}
-                                css={{marginInline: 5}}
+                                sx={{marginInline: 5}}
                                 color={"secondary"}
                                 onChange={this.handleSubjectChange}
-                                aria-label={"subject field"}
-                                borderWeight={"bold"}
-                                bordered={true}
-                                labelPlaceholder={"Subject"}/>
+                                aria-label={"subject-field"}
+                                label={"Subject"}
+                                />
                         </Box>
                         <Spacer x={0} y={2.25}/>
                         <Box
                             sx={{display:'flex', justifyContent: "center", width: "100%", flexDirection: "column"}}>
-                            <Textarea
+                            <TextField
+                                onChange={this.handleMessageChange}
                                 required={true}
-                                helperText={this.state.messageError?"Message required":""}
-                                helperColor={"error"}
                                 onBlur={this.handleMessageBlur}
-                                css={{marginInline: 5, fontFamily: "sans-serif"}}
+                                sx={{marginInline: 5, fontFamily: "sans-serif"}}
                                 minRows={5}
                                 color={"secondary"}
-                                bordered={true}
-                                borderWeight={"bold"}
-                                style={{width: "100%"}}
-                                labelPlaceholder={"Message"}
-                                multiple={true}/>
+                                borderWeight={"bold"}/>
                         </Box>
                         <Text css={{color: "green", margin: 5}}>{this.state.resMessage}</Text>
                         <Spacer x={0} y={2}/>
