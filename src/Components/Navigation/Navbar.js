@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {motion} from 'framer-motion';
 import {Link} from 'react-router-dom';
-import {Button,Container} from '../Motion/Motion';
+import {Brand, Button, Container, Icon} from '../Motion/Motion';
 import {MenuOutlined as Menu} from "@mui/icons-material";
-import * as M from '@mui/material';
 import "./navbar.css";
 import Drawer from "./Drawer";
+import {motion} from 'framer-motion';
 
-const Toolbar=Container,Toggle=Button;
+const Toolbar=Container,Toggle=Icon;
 const opts=['left', 'right', 'top'];
 const config = (state)=>[
 //left
@@ -25,8 +24,8 @@ const config = (state)=>[
             ...state,
             open: true,
             animateProps: {
-                width: '100vw',
-                x: 0
+                width: 'calc(100vw - 250px)',
+                x: 250
             }
         }
     ],
@@ -81,13 +80,14 @@ const config = (state)=>[
 const styles =(props)=> (
     {
         main: {
-            zIndex: 900,
+            zIndex: 1008,
             width: "100%",
             display: 'flex',
             height: 60,
             alignItems: 'center', justifyContent: 'center', alignContent: 'center',
-            background: "linear-gradient(to right top, #3a009b, #38009d, #35009f, #3200a1, #2f00a3, #2b009f, #26009b, #220097, #1c008c, #170081, #110077, #0b006c)",
-            position: 'fixed'
+            background: 'linear-gradient(-45deg, rgb(125, 10, 201) 0%, rgb(125, 0, 100) 100%)',
+            position: 'fixed',
+
         },
         toggle: {
             position:'absolute',
@@ -108,11 +108,12 @@ const styles =(props)=> (
         }
     }
 )
-const items = [
-    <Link style={{color:'white', textDecoration: "none", width: "100%", height: "100%", display: "flex", alignContent:"center", justifyContent: "center", alignItems:'center'}} to={"/"}>Home</Link>,
-    <Link style={{color:'white', textDecoration: "none", width: "100%", height: "100%", display: "flex", alignContent:"center", justifyContent: "center", alignItems:'center'}} to={"about"}>About</Link>,
-    <Link style={{color:'white', textDecoration: "none", width: "100%", height: "100%", display: "flex", alignContent:"center", justifyContent: "center", alignItems:'center'}} to={"contact"}>Contact</Link>
+export const items = [
+    {text: "Home", to: "/"},{text: "About", to: "/about"}, {text: "Contact", to: "/contact"},{text: "Portfolio", to: "/work"}
 ]
+
+
+
 class Nav extends Component {
     constructor(props) {
         super(props);
@@ -129,11 +130,10 @@ class Nav extends Component {
     componentDidMount() {}
     shouldComponentUpdate(nextProps, nextState) {return this.state!==nextState || this.props!==nextProps;}
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.open && window.innerWidth > 600) document.getElementById('off').click();
+        // if (this.state.open && window.innerWidth > 600) document.getElementById('off').click();
     }
     componentWillUnmount() {window.onresize=null;}
     toggleMenu(){
-        let index = opts.indexOf(this.props.drawerAnchor);
         for (let i = 0; i < opts.length; i++) {
             if (this.props.drawerAnchor === opts[i] && this.state.open){
                 this.setState(config(this.state)[i][0])
@@ -153,11 +153,10 @@ class Nav extends Component {
             }
         }
         return (
-            <>
                 <Container
                     style={styles(this.props).main}
                     id={"Navbar"}
-                    transition={{bounce:0, duration: 0.2}}
+                    transition={{type: "keyframes", duration: 0.2}}
                     animate={this.state.animateProps}>
 
                     <Toolbar id={"navbar-toolbar"}
@@ -169,50 +168,50 @@ class Nav extends Component {
                                 transition={{}}
                                 whileHover={{scale: 1.1}}
                                 whileTap={{scale: 0.8}}
-                                onClick={this.toggleMenu}>
+                                onClick={this.props.onToggle}>
                             <Menu size={30} />
                         </Toggle>
+
                         <Container
                             style={{width: "100%"}}
                             id={"navbar-menu-noDrawer"}>
                             <ul style={{listStyleType:"none", display: 'flex', padding:0, margin:0}}>
                                 {items.map((item, index)=>{
-                                    return (
-                                        <li key={'navMenuListItem'+index} style={{paddingInline: 15,height: 50, display: "flex", alignContent:"center", alignItems:"center", justifyContent:"left"}}>
-                                            {item}
-                                        </li>
-                                    )
+                                    return <li key={'navMenuListItem'+index} style={{paddingInline: 15,height: 50, display: "flex", alignContent:"center", alignItems:"center", justifyContent:"left"}}>
+                                        <Button
+                                            key={index} component={Link} style={{
+                                            color:'white', textDecoration: "none", width: "100%", height: "100%", display: "flex", alignContent:"center", justifyContent: "center", alignItems:'center',
+                                            zIndex:220002,
+                                        }} to={item.to}>{item.text}</Button>
+                                    </li>
                                 })}
                             </ul>
                         </Container>
                         {/*<Link to={"/"} style={{ textDecoration:"none", color: 'white', display: 'flex', width: 150}}>Jeremy Anderson</Link>*/}
                     </Toolbar>
-                </Container>
-                <Drawer
-                    open={this.state.open}
-                    anchor={this.props.drawerAnchor}>
-                        <ul style={{listStyleType:"none", display: 'flex', flexDirection:"column", padding:0, margin:0, justifyContent:"center", alignItems:"center", alignContent: "center"}}>
-                            {items.map((item, index)=>{
-                                return (
-                                    <li onClick={(e)=>{
-                                        e.preventDefault();
-                                        this.toggleMenu()
-                                    }}
-                                        key={'navMenuListItem'+index}
-                                        style={{
-                                            // borderTop: "0.5px solid white",
-                                            // borderBottom: "0.5px solid white",
-                                            width: "100%", height: 180/items.length,
-                                            display: "flex", alignContent:"center",
-                                            alignItems:"center", justifyContent:"center"}}>
-                                        {item}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                </Drawer>
 
-            </>
+        {/*<ul style={{listStyleType:"none", display: 'flex', flexDirection:"column", padding:0, margin:0, justifyContent:"center", alignItems:"center", alignContent: "center"}}>*/}
+        {/*    {items.map((item, index)=>{*/}
+        {/*        return (*/}
+        {/*            <li onClick={(e)=>{*/}
+        {/*                e.preventDefault();*/}
+        {/*                this.toggleMenu()*/}
+        {/*            }}*/}
+        {/*                key={'navMenuListItem'+index}*/}
+        {/*                style={{*/}
+        {/*                    // borderTop: "0.5px solid white",*/}
+        {/*                    // borderBottom: "0.5px solid white",*/}
+        {/*                    width: "100%", height: 240/items.length,*/}
+        {/*                    display: "flex", alignContent:"center",*/}
+        {/*                    alignItems:"center", justifyContent:"center"}}>*/}
+        {/*                {item.text}*/}
+        {/*            </li>*/}
+        {/*        )*/}
+        {/*    })}*/}
+        {/*</ul>*/}
+
+                </Container>
+
         );
     }
 }

@@ -9,7 +9,14 @@ const tagMap = {
     heading2: "h2",
 };
 
-const AnimatedCharacters = (props) => {
+const AnimatedText = (props) => {
+    let speed;
+    switch(props.speed){
+        case "slow":  speed = 1; break;
+        case "normal": speed = 0.5; break;
+        case "fast":  speed = 0.3; break;
+        default:  speed = 0.7; break;
+    }
     const item = {
         hidden: {
             y: "100%",
@@ -20,28 +27,19 @@ const AnimatedCharacters = (props) => {
         visible: {
             y: 0,
             color: "#170772",
-            transition: {type: "spring",  ease: [0.15, 0.5, 0.7, 1], duration: 0.3 , bounce: 0.3, bounceStiffness: 0.5}
+            transition: {type: "spring",  ease: [0, 0.4, 0.7, 1], duration: speed , bounce: 0.3, bounceStiffness: 0.1}
         }
     };
 
-    //  Split each word of props.text into an array
     const splitWords = props.text.split(" ");
-
-    // Create storage array
     const words = [];
-
-    // Push each word into words array
     for (const [, item] of splitWords.entries()) {
         words.push(item.split(""));
     }
-
     words.map((word) => {
         return word.push("\u00A0");
     });
-
-    // Get the tag name from tagMap
     const Tag = tagMap[props.type];
-
     return (
         <Tag>
             {words.map((word, index) => {
@@ -56,7 +54,7 @@ const AnimatedCharacters = (props) => {
                                     }}
                                     key={index}>
                                         <motion.span
-                                            style={{ display: "flex" }}
+                                            style={{ display: "flex"}}
                                             variants={item}>
                                                 {element}
                                         </motion.span>
@@ -70,4 +68,4 @@ const AnimatedCharacters = (props) => {
     );
 };
 
-export default AnimatedCharacters;
+export default AnimatedText;

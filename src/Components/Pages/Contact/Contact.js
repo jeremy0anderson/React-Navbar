@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-
-import {Spacer, Text, Textarea, Button as NButton} from '@nextui-org/react';
-import {Card, Button, Container, Box, Typography, TextField} from '@mui/material';
+import {Spacer, Text, Container as NContainer} from '@nextui-org/react';
+import {Card, Button, Box, TextField} from '@mui/material';
 import {init, send} from '@emailjs/browser';
-import {Mail, MailOutlined, NotesOutlined, PersonOutlined} from "@mui/icons-material";
-import {Link} from 'react-router-dom';
-import {motion} from 'framer-motion';
 import {TailSpin} from "react-loader-spinner";
 
 init(process.env.REACT_APP_PUBLIC_KEY);
 
 class Contact extends Component {
+    //constructor
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +41,6 @@ class Contact extends Component {
     componentDidUpdate(prevProps, prevState) {}
     componentWillUnmount() {}
 
-
     //event handlers
     handleNameBlur(e){
         this.setState({
@@ -54,11 +49,27 @@ class Contact extends Component {
         })
     }
     handleEmailBlur(e){
-        const rx = /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/;
-        this.setState({
-            ...this.state,
-            emailError: !rx.test(e.target.value)
-        })
+        console.log(e.target.value);
+        const rx = /^([-!#-'*+\/-9=?A-Z^-~]+(\.[-!#-'*+\/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@([-!#-'*+\/-9=?A-Z^-~]+(\.[-!#-'*+\/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])$/;
+        if (rx.test(e.target.value)){
+             return  this.setState({
+                    ...this.state,
+                    emailError: false
+                })
+            }
+        if (rx.test(e.target.value) === false ){
+         return this.setState({
+                 ...this.state,
+                 emailError: true
+             })
+         }
+        if (rx.test(e.target.value) === false || e.target.value.length === 0){
+            return this.setState({
+                ...this.state,
+                emailError: true,
+                emailErrorMessage: ""
+            })
+        }
     }
     handleSubjectBlur(e){
         this.setState({
@@ -75,25 +86,29 @@ class Contact extends Component {
     handleNameChange(e){
         this.setState({
             ...this.state,
-            name:e.target.value
+            name:e.target.value,
+            nameError:false
         })
     }
     handleEmailChange(e){
         this.setState({
             ...this.state,
-            email:e.target.value
+            email:e.target.value,
+            emailError:false
         })
     }
     handleSubjectChange(e){
         this.setState({
             ...this.state,
-            subject:e.target.value
+            subject:e.target.value,
+            subjectError:false
         })
     }
     handleMessageChange(e){
         this.setState({
             ...this.state,
-            message:e.target.value
+            message:e.target.value,
+            messageError: false
         })
     }
     handleSubmit(e){
@@ -123,21 +138,27 @@ class Contact extends Component {
     render() {
         return (
             // <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", height: "80%", width: "100%", p:0, left: 0}}>
+            <NContainer
+                css={{position: "relative", display: 'flex', justifyContent: "center", alignItems: "center", alignContent: "center", top: 100, p:0 }}
+                sm={true}>
                 <Card sx={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", alignSelf: "center",
-                    width:{
-                        xs: "90%",
-                        sm: "80%",
-                        md: "70%",
-                        lg: "60%",
-                        xl: "50%"
-                    }, height: "60%", position: "absolute",
-                    left:{
-                        xs: "5%",
-                        sm: "10%",
-                        md: "15%",
-                        lg: "20%",
-                        xl: "25%"
-                    },top: 100, overflow: "visible"}}>
+                    // width:{
+                    //     xs: "90%",
+                    //     sm: "80%",
+                    //     md: "70%",
+                    //     lg: "60%",
+                    //     xl: "50%"
+                    // }, height: "60%",
+                    // position: "absolute",
+                    // left:{
+                    //     xs: "5%",
+                    //     sm: "10%",
+                    //     md: "15%",
+                    //     lg: "20%",
+                    //     xl: "25%"
+                    // },
+                    p:10,
+                    overflow: "visible"}}>
                     <Box
                         id={"Contact-form"}
                         onSubmit={this.handleSubmit}
@@ -145,7 +166,7 @@ class Contact extends Component {
                         <Box
                             sx={{
                                 display:'flex',
-                                justifyContent: "space-between",
+                                justifyContent: "center",
                                 flexDirection:{
                                     xs: "column",
                                     sm: "row",
@@ -158,10 +179,13 @@ class Contact extends Component {
                                 variant={"outlined"}
                                 required={true}
                                 onBlur={this.handleNameBlur}
-                                sx={{marginInline: 5}}
+                                sx={{marginInline: .5}}
                                 onChange={this.handleNameChange}
                                 aria-label={"name field"}
                                 type={"text"}
+                                color={"secondary"}
+                                helperText={this.state.nameError?"Name required":" "}
+                                error={this.state.nameError}
                                 label={"Name"}/>
                             <Spacer x={0} y={2.5}/>
                             <TextField
@@ -169,34 +193,41 @@ class Contact extends Component {
                                 type={"email"}
                                 required={true}
                                 onBlur={this.handleEmailBlur}
-                                sx={{marginInline: 5}}
+                                sx={{marginInline: .5}}
                                 color={"secondary"}
                                 onChange={this.handleEmailChange}
                                 aria-label={"email field"}
+                                error={this.state.emailError}
+                                helperText={this.state.emailError?"Email required":" "}
                                 label={"Email"}/>
-                            <Spacer x={0} y={1.5}/>
+                            <Spacer x={0} y={2}/>
                             <TextField
                                 variant={"outlined"}
                                 required={true}
                                 onBlur={this.handleSubjectBlur}
-                                sx={{marginInline: 5}}
+                                sx={{marginInline: .5}}
                                 color={"secondary"}
                                 onChange={this.handleSubjectChange}
                                 aria-label={"subject-field"}
                                 label={"Subject"}
+                                helperText={this.state.subjectError?"Subject required":" "}
+                                error={this.state.subjectError}
                                 />
                         </Box>
-                        <Spacer x={0} y={2.25}/>
+                        <Spacer x={0} y={2.5}/>
                         <Box
                             sx={{display:'flex', justifyContent: "center", width: "100%", flexDirection: "column"}}>
                             <TextField
                                 onChange={this.handleMessageChange}
                                 required={true}
                                 onBlur={this.handleMessageBlur}
-                                sx={{marginInline: 5, fontFamily: "sans-serif"}}
-                                minRows={5}
-                                color={"secondary"}
-                                borderWeight={"bold"}/>
+                                sx={{marginInline: .5, fontFamily: "sans-serif"}}
+                                multiline={true}
+                                minRows={3}
+                                label={"Message"}
+                                helperText={this.state.messageError?"Subject required":" "}
+                                error={this.state.messageError}
+                                color={"secondary"}/>
                         </Box>
                         <Text css={{color: "green", margin: 5}}>{this.state.resMessage}</Text>
                         <Spacer x={0} y={2}/>
@@ -208,18 +239,18 @@ class Contact extends Component {
                             }}>
                             <Button
                                 disabled={this.state.emailError || this.state.nameError || this.state.messageError || this.state.subjectError}
-                                sx={{width: "98%", marginInline:0}} variant={"contained"} type={"submit"}>
+                                sx={{width: "98%", marginInline:.5}} variant={"contained"} type={"submit"}>
                                 {this.state.loading? <TailSpin color="#00BFFF" height={30} width={30} visible={this.state?.loading}/>: "Send"}
                             </Button>
                         </Box>
                         <Spacer x={0} y={2}/>
                     </Box>
                 </Card>
-            // </Box>
+            {/*// </Box>*/}
+            </NContainer>
         );
     }
 }
 
-Contact.propTypes = {};
 
 export default Contact;

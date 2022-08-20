@@ -2,27 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as M from '@mui/material';
 import {Container, Card} from "../../Motion/Motion";
-import skillsArr from "../Home/Skills";
-
-const Skills = () => (
-    <Container
-        style={{display: 'flex', position: "absolute", flexWrap: "wrap", justifyContent: "center", alignItems: "center", alignContent: "center", top: 60}}>
-        {skillsArr.map(({skill, link}, index)=>{
-            return(
-                <Card
-                    animate={{}}
-                    whileHover={{scale: 1.2, zIndex: 2000}}
-                    whileTap={{scale: 0.9}}
-                    transition={{}}
-                    style={{padding: 10, margin:5,width: 80, display: 'flex', flexDirection: 'column', justifyContent:"center", alignContent:"center", alignItems: "center",}}
-                    key={skill}>
-                    <img key={skill+"img"} src={link} alt={skill} width={50} height={50}/>
-                    <M.Typography key={skill+"txt"} variant={"caption"}>{skill}</M.Typography>
-                </Card>
-            )
-        })}
-    </Container>
-)
+import {Text} from "@nextui-org/react";
+import skillsArr, {Skills} from "./Skills";
+import LogoFn from '../../Logo/Logo';
 
 class About extends Component {
     constructor(props) {
@@ -40,13 +22,27 @@ class About extends Component {
     componentWillUnmount() {}
     render() {
         return (
-            <>
-              <Skills/>
-            </>
+           <Container
+                style={{display: 'grid',gridTemplate: "auto auto auto /  auto ", overflow: 'scroll'}}>
+               <Text h2>Languages & Frameworks</Text>
+               <Card
+                   sx={{p: 5, overflow: "visible", display: 'flex', justifyContent:'center', alignContent: 'center'}}>
+                   <Skills skillSet={skillsArr.languages}/>
+               </Card>
+               <Text h2>Backend</Text>
+               <Card
+                   sx={{p: 5, overflow: "visible", display: 'flex', justifyContent:'center', alignContent: 'center'}}>
+                   <Skills skillSet={skillsArr.backEnd}/>
+               </Card>
+               <Text h2>Frontend</Text>
+               <Card
+                   sx={{p: 5, overflow: "visible", display: 'flex', justifyContent:'center', alignContent: 'center'}}>
+                   <Skills skillSet={skillsArr.frontEnd}/>
+               </Card>
+           </Container>
         );
     }
 }
 
-About.propTypes = {};
 
 export default About;
